@@ -78,7 +78,7 @@ class RegisterController extends Controller
 
         $image = Image::make($data_url);
 
-        $image->resize(400,400)->save(storage_path() . '/app/public/images/' . $fileNameToStore );
+        $image->resize(400,400)->save(storage_path() . '/app/public/images/' . $fileNameToStore);
 
         return User::create([
             'name' => $data['name'],
@@ -86,7 +86,7 @@ class RegisterController extends Controller
             'password' => Hash::make($data['password']),
             'self_introduction' => $data['self_introduction'],
             'sex' => $data['sex'],
-            'img_name' => $data['img_name'],
+            'img_name' => $fileNameToStore,
         ]);
     }
 }
