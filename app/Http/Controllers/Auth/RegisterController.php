@@ -9,6 +9,7 @@ use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
+use Intervention\Image\Facades\Image;
 class RegisterController extends Controller
 {
     /*
@@ -53,6 +54,8 @@ class RegisterController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'img_name' => ['file', 'image', 'mimes:jpeg,png,jpg,gif', 'max:2000'],
+            'self_introduction' => ['string', 'max:255'],
         ]);
     }
 
@@ -64,10 +67,46 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+        $imageFile = $data['img_name'];
+        $filenameWithExt = $imageFile->getClientOriginalName();
+        var_dump("filenameWithExt: ",$filenameWithExt);
+
+        $fileName = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+        var_dump("PATHINFO_FILENAME", PATHINFO_FILENAME);
+        var_dump("$fileName", $fileName);
+
+        $extension = $imageFile->getClientOriginalExtension();
+        $fileNameToStore = $fileName.'_'.time().'.'.$extension;
+
+        $fileData = file_get_contents($imageFile->getRealPath());
+        var_dump("getRealPath()", $imageFile->getRealPath());
+        exit;
+        if ($extension = 'jpg'){
+            $data_url = 'data:image/jpg;base64,'. base64_encode($fileData);
+        }
+
+        if ($extension = 'jpeg'){
+            $data_url = 'data:image/jpg;base64,'. base64_encode($fileData);
+        }
+
+        if ($extension = 'png'){
+            $data_url = 'data:image/png;base64,'. base64_encode($fileData);
+        }
+
+        if ($extension = 'gif'){
+            $data_url = 'data:image/gif;base64,'. base64_encode($fileData);
+        }
+        $image = Image::make($data_url);
+
+        $image->resize(400,400)->save(storage_path() . '/app/public/images/' . $fileNameToStore );
+
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
+            'self_introduction' => $data['self_introduction'],
+            'sex' => $data['sex'],
+            'img_name' => $data['img_name'],
         ]);
     }
 }
