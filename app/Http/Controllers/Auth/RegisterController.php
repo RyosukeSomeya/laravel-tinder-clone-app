@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use App\User;
-use App\Services\CehckExtensionServices;
+use App\Services\CheckExtensionServices;
 use App\Services\FileUploadServices;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
@@ -74,7 +74,7 @@ class RegisterController extends Controller
 
         list($extension, $fileNameToStore, $fileData) = $list;
 
-        $data_url = CehckExtensionServices::checkExtension($fileData, $extension);
+        $data_url = CheckExtensionServices::checkExtension($fileData, $extension);
 
         $image = Image::make($data_url);
 

@@ -10,6 +10,10 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+//['prefix' => 'users']でurlの先頭にusersがついて/users/show/1などとなる
+Route::group(['prefix' => 'users', 'middleware' => 'auth'], function() {
+    Route::get('show/{id}', 'UserController@show')->name('users.show');
+});
 
 Route::get('/', function () {
     return view('top');

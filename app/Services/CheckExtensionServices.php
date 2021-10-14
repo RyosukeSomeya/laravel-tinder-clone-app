@@ -2,7 +2,7 @@
 
 namespace App\Services;
 
-class CehckExtensionServices
+class CheckExtensionServices
 {
 
   public static function checkExtension($fileData, $extension) {
