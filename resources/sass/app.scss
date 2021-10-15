@@ -4,21 +4,29 @@
 // Variables
 @import 'variables';
 
-$fa-font-path: '../webfonts';
+$fa-font-path: "../webfonts";
 
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
 
+// FontAwesome
 @import "~@fortawesome/fontawesome-free/scss/fontawesome";
 @import '~@fortawesome/fontawesome-free/scss/solid';
 @import '~@fortawesome/fontawesome-free/scss/regular';
 @import '~@fortawesome/fontawesome-free/scss/brands';
 
-//pages
-@import 'top';
+@import "top";
+
 @import "sign_up";
+
 @import "sign_in";
-@import "show";
+
+@import "show"; 
+
 @import "edit";
+
 @import "jTinder";
 
+@import "matching"; 
+
+@import "chat"; // この行を追加
